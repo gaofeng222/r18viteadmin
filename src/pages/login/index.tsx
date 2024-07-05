@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import style from './login.module.scss'
 import type { FormProps } from 'antd';
 import Logo from '@/assets/images/login-bg.png'
+import { useDispatch, useSelector } from 'react-redux';
 
 type FieldType = {
   username?: string;
@@ -10,9 +11,21 @@ type FieldType = {
 };
 
 
+type StateType = {
+  loginReducer : Record<string,any>
+}
+
+
 function Login(){
+  const { userInfo } = useSelector((state:StateType) => state.loginReducer);
+  const dispatch = useDispatch();
+  console.log("🚀 ~ Login ~ userInfo:", userInfo)
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+    console.log("🚀 ~ Login ~ values:", values)
+    dispatch({
+      type:"LOGIN",
+      payload:values,      
+    })
   };
   
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -26,6 +39,7 @@ function Login(){
            <img src={Logo} />
         </div>
         <div className={style['right-content']}>
+          {userInfo.username}
           <p className={style['login-form-title']}>
              欢迎使用<span>Viteam</span>管理平台
           </p>
