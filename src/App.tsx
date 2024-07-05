@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import '@/App.css'
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useRoutes } from 'react-router-dom';
+import router from './router'
+const { Header, Sider, Content } = Layout;
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
+  const pathname= location.pathname;
+  const OutLet = useRoutes(router)
+  const navigate = useNavigate();
+  const handleClickMenu = (e: any) => {
+    //路由跳转
+    navigate(e.key);
+  }
 
+  useEffect(() => {
+    console.log(pathname);
+  }, [pathname]);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Layout className='main-layout'>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="inline"
+          onClick={handleClickMenu}
+          selectedKeys={[pathname]}
+          defaultSelectedKeys={[pathname]}
+          items={[
+            {
+              key: '/home',
+              icon: <UserOutlined />,
+              label: '首页',
+            },
+            {
+              key: '/about',
+              icon: <VideoCameraOutlined />,
+              label: '关于我们',
+            }
+          ]}
+        />
+      </Sider>
+      <Layout className="site-layout">
+        <Header className="site-layout-background" style={{ padding: 0 }}>
+          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+            className: 'trigger',
+            onClick: () => setCollapsed(!collapsed),
+          })}
+        </Header>
+        <Content
+          className="site-layout-background"
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+          }}
+        >
+          {OutLet}
+        </Content>
+      </Layout>
+    </Layout>
+  );
+};
 
-export default App
+export default App;
