@@ -1,8 +1,45 @@
 .login-page{
   height: 100%;
-  .star{
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-  }
+  background: url("@/assets/images/login-bg-5.jpg") no-repeat center;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 10px;
+    width: fit-content;
+    padding:20px;
+    height: fit-content;
+    box-shadow:
+      -5px -5px 22.7px rgba(0, 0, 0, 0.025),
+      -4px -4px 41.7px rgba(0, 0, 0, 0.041),
+      5.7px 5.7px 57.9px rgba(0, 0, 0, 0.052),
+      30.9px 30.9px 77.2px rgba(0, 0, 0, 0.059),
+      100px 100px 154px rgba(0, 0, 0, 0.07)
+    }
+    .left-content{
+      width: 600px;
+      height: 100%;
+      img{
+        width: 100%;
+      }
+    }
+    .right-content{
+      .login-form-title{
+        font-size: 24px;
+        color: #666;
+        margin: 20px auto;
+        text-align: center;
+      }
+      h2{
+        font-size: 36px;
+        font-weight: bold;
+        color:#333;
+        margin-bottom: 30px;
+      }
+    }
 }
