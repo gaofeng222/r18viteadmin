@@ -5,7 +5,9 @@ import Loading from "@/pages/loading"
 
 const About = lazy(() => import("@/pages/about"));
 
-import { Navigate } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
+import Login from "@/pages/login/index";
+import Layout from '@/layout/default'
 
 const withLoading = (Component:JSX.Element) => {
   return (
@@ -14,10 +16,18 @@ const withLoading = (Component:JSX.Element) => {
     </React.Suspense>
   );
 }
-const router = [
-  { path: "/", element: <Navigate to='/home' /> },
-  { path: "home", element: <Home /> },
-  { path: "about", element: withLoading(<About />) },
-  { path: "*", element: <Navigate to="/" replace={true} /> }
-];
-export default router;
+//路由的类型声明
+export const routes = [
+  { path: "/", 
+    element: <Layout />,
+    children: [
+      { path: "", element: <Home /> },
+      { path: "about", element: withLoading(<About />) },
+    
+    ]
+   },
+   { path: "login", element:<Login /> },
+   { path: "*", element: <Navigate to="/" replace={true} /> }
+]
+
+export default createBrowserRouter(routes);
