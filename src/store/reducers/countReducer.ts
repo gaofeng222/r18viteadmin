@@ -1,5 +1,6 @@
 const initState = {
   counter: 0,
+  welcome: "欢迎使用Vite+React+TS",
 };
 
 function CounterReducer(state = initState, action) {
@@ -12,6 +13,9 @@ function CounterReducer(state = initState, action) {
       return { ...state, counter: state.counter + action.payload.count };
     case "SAGA_COUNT_DECREMENT":
       return { ...state, counter: state.counter - action.payload.count };
+    case "SHOW_CONGRATULATION":
+      console.log("🚀 ~ CounterReducer ~ action:", action);
+      return { ...state, welcome: action.action.welcome };
     default:
       return state;
   }

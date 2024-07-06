@@ -6,7 +6,7 @@ import './index.scss'
 
 
 function ReduxSaga() {
-  const {counter:count} = useSelector((state:any) => state.countReducer)
+  const {counter:count,welcome} = useSelector((state:any) => state.countReducer)
   const dispatch = useDispatch()
   const handleClickAdd = () => {
     dispatch({type: 'INCREMENT'})
@@ -24,9 +24,14 @@ function ReduxSaga() {
  const handleClickAsyncMinus = () => {
   dispatch({type:"SAGA_DECREMENT",payload: {count:100}})
  }
+
+ const handleChangeWelcome = () => {
+  dispatch({type:"TODO_CREATED",payload: {welcome:'Welcome to Redux Saga!'}})
+ }
   return <div className="redux-saga-box">{/* 显示两个antd按钮，一个加法一个减法 */}
   {/* 显示当前值 */}
   <h3>{count}</h3>
+  <p>{welcome}</p>
  <div>
    <Space>
      <Button onClick={handleClickAdd}>同步+</Button>
@@ -36,6 +41,9 @@ function ReduxSaga() {
      <Button onClick={handleClickAsyncAdd}>异步3s+</Button>
      <Button onClick={handleClickAsyncMinus}>异步3s-</Button>
    </Space>
+   <div>
+     <Button onClick={handleChangeWelcome}>change words</Button>
+   </div>
  </div>
  <ThinkChildComps /></div>;
 }

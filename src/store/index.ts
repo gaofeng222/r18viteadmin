@@ -7,6 +7,7 @@ import {
 import { thunk } from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import mySaga from "./sagas/index";
+import watchAndLog from "./sagas/logger";
 
 import loginReducer from "./reducers/loginReucer";
 import countReducer from "./reducers/countReducer";
@@ -28,5 +29,6 @@ const store = createStore(
 );
 
 sagaMiddleware.run(mySaga);
+sagaMiddleware.run(watchAndLog);
 
 export default store;

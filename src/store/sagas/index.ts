@@ -1,4 +1,11 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+  call,
+  put,
+  takeEvery,
+  takeLatest,
+  take,
+  select,
+} from "redux-saga/effects";
 
 /**
  *
@@ -31,9 +38,9 @@ function* changDeCount(actions) {
   yield put({ type: "SAGA_COUNT_DECREMENT", payload: { count: res } });
 }
 
-function* mySaga() {
+function* rootSaga() {
   yield takeLatest("SAGA_INCREMENT", changAddCount);
   yield takeEvery("SAGA_DECREMENT", changDeCount);
 }
 
-export default mySaga;
+export default rootSaga;
