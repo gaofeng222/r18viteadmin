@@ -5,17 +5,15 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Avatar, Layout, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useRoutes } from 'react-router-dom';
-import router from './router'
+import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const pathname= location.pathname;
-  const OutLet = useRoutes(router)
   const navigate = useNavigate();
   const handleClickMenu = (e: any) => {
     //路由跳转
@@ -51,10 +49,10 @@ const App: React.FC = () => {
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+          {/* {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
             onClick: () => setCollapsed(!collapsed),
-          })}
+          })}          */}
         </Header>
         <Content
           className="site-layout-background"
@@ -64,7 +62,7 @@ const App: React.FC = () => {
             minHeight: 280,
           }}
         >
-          {OutLet}
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

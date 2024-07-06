@@ -1,11 +1,14 @@
 // import { push } from "react-router-redux";
 import type { UseInfoType } from "@/types/userType";
+import { randomNumber } from "@/utils/common";
+
+function parseData(data: string) {
+  return JSON.parse(data);
+}
+
 const initState = {
-  isLogin: false,
-  userInfo: {
-    username: "张三",
-    age: 60,
-  },
+  isLogin: !!Number(localStorage.getItem("isLogin")), // 0表示未登录，1表示已登录
+  userInfo: parseData(localStorage.getItem("userInfo") || "{}"),
 };
 
 function LoginReducer(
@@ -27,6 +30,8 @@ function LoginReducer(
 }
 
 const setLogin = (data: UseInfoType) => {
+  localStorage.setItem("userInfo", JSON.stringify(data));
+  localStorage.setItem("isLogin", "1");
   return { type: "LOGIN", payload: data };
 };
 
@@ -44,6 +49,20 @@ export const loginFormDisaptch = (data: UseInfoType) => {
           resolve(false);
         }
       }, 200);
+    });
+  };
+};
+
+export const logOutFormDispatch = () => {
+  return (dispatchEvent: any) => {
+    //模拟异步请求
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("userInfo");
+        dispatchEvent({ type: "LOGOUT" });
+        resolve(true);
+      }, 2000);
     });
   };
 };

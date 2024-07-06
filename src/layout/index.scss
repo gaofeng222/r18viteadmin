@@ -1,0 +1,12 @@
+.top-header{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  .right-content{
+    margin-right: 40px;
+    &__welcome-tips{
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+  }
+}

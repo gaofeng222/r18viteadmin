@@ -1,13 +1,12 @@
 import React, { lazy } from "react";
 import Home from "@/pages/home";
 import Loading from "@/pages/loading"
-// import About from "@/pages/about";
-
 const About = lazy(() => import("@/pages/about"));
 
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import Login from "@/pages/login/index";
 import Layout from '@/layout/default'
+import WithAuth from '@/pages/Auth/index'
 
 const withLoading = (Component:JSX.Element) => {
   return (
@@ -16,10 +15,13 @@ const withLoading = (Component:JSX.Element) => {
     </React.Suspense>
   );
 }
+
+
+
 //路由的类型声明
 export const routes = [
   { path: "/", 
-    element: <Layout />,
+    element: <WithAuth><Layout /></WithAuth>,
     children: [
       { path: "", element: <Home /> },
       { path: "about", element: withLoading(<About />) },
