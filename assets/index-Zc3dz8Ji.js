@@ -1,0 +1,1 @@
+import{j as e,L as s}from"./index-Dqkj5EXX.js";function i(){return e.jsxs("div",{children:[e.jsx("h1",{children:"About"}),e.jsx("p",{children:"This is the about page."}),e.jsx(s,{to:"/",children:"Go back home"})]})}export{i as default};
