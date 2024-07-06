@@ -1,8 +1,15 @@
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, message } from 'antd';
+import type { UseInfoType } from "@/types/userType";
 import style from './login.module.scss'
 import type { FormProps } from 'antd';
 import Logo from '@/assets/images/login-bg.png'
 import { useDispatch, useSelector } from 'react-redux';
+import { loginFormDisaptch } from '@/store/reducers/loginReucer'
+import { useNavigate } from 'react-router-dom';
+import _ from 'lodash'
+import { useState } from 'react';
+
+
 
 type FieldType = {
   username?: string;
@@ -15,18 +22,22 @@ type StateType = {
   loginReducer : Record<string,any>
 }
 
-
 function Login(){
   const { userInfo } = useSelector((state:StateType) => state.loginReducer);
   const dispatch = useDispatch();
-  console.log("🚀 ~ Login ~ userInfo:", userInfo)
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log("🚀 ~ Login ~ values:", values)
-    dispatch({
-      type:"LOGIN",
-      payload:values,      
-    })
-  };
+  const navigate = useNavigate()
+  const [login,setLogin] = useState(false)
+  const onFinish: FormProps<FieldType>['onFinish'] = async  (values) => {
+    const userInfo = values as UseInfoType;
+    const res = await dispatch(loginFormDisaptch(userInfo) as any)
+    if(res){
+      setLogin(true)
+      navigate('/')
+      message.success('登录成功')
+    }else{
+      message.error('登录失败')
+    }
+  }
   
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);

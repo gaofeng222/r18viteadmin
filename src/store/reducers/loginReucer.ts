@@ -1,3 +1,5 @@
+// import { push } from "react-router-redux";
+import type { UseInfoType } from "@/types/userType";
 const initState = {
   isLogin: false,
   userInfo: {
@@ -12,7 +14,6 @@ function LoginReducer(
 ) {
   switch (action.type) {
     case "LOGIN":
-      console.log("aaaaaaa", action.type);
       return {
         ...state,
         isLogin: true,
@@ -20,10 +21,31 @@ function LoginReducer(
       };
     case "LOGOUT":
       return { ...state, isLogin: false };
-
     default:
   }
   return state;
 }
+
+const setLogin = (data: UseInfoType) => {
+  return { type: "LOGIN", payload: data };
+};
+
+// 定义 DispatchEvent 类型
+
+export const loginFormDisaptch = (data: UseInfoType) => {
+  return (dispatchEvent: any) => {
+    //模拟异步请求
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (data.username === "admin" && data.password === "123456") {
+          dispatchEvent(setLogin(data));
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }, 200);
+    });
+  };
+};
 
 export default LoginReducer;
