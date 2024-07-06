@@ -58,10 +58,14 @@ export const logOutFormDispatch = () => {
     //模拟异步请求
     return new Promise((resolve) => {
       setTimeout(() => {
-        localStorage.removeItem("isLogin");
-        localStorage.removeItem("userInfo");
-        dispatchEvent({ type: "LOGOUT" });
-        resolve(true);
+        if (randomNumber()) {
+          localStorage.removeItem("isLogin");
+          localStorage.removeItem("userInfo");
+          dispatchEvent({ type: "LOGOUT" });
+          resolve(true);
+        } else {
+          resolve(false);
+        }
       }, 2000);
     });
   };

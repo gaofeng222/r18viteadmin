@@ -29,7 +29,7 @@ const DefaultLayout: React.FC = () => {
     navigate(e.key);
   }
 
-  const  handleLogOut:MenuProps['onClick'] = async ({key}) => {
+  const  handleLogOut:MenuProps['onClick'] = async () => {
     //@ts-ignore
     const res = await dispatch(logOutFormDispatch())
     if(res){

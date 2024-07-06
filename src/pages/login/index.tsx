@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, Form, Input, Row, message } from 'antd';
+import { Button, Checkbox, Col, Form, Input, Row, Space, message } from 'antd';
 import type { UseInfoType } from "@/types/userType";
 import style from './login.module.scss'
 import type { FormProps } from 'antd';
@@ -80,10 +80,17 @@ function Login(){
                     <Button style={{width:"100%",height:'46px',fontSize:"20px"}} type="primary" htmlType="submit">登录</Button>
                 </Form.Item>
             </Form>
+            <div style={{color:'grey',fontSize:'14px',textAlign:'center'}}>
+              <Space>
+                  <span>测试账号:admin</span>
+                  <span>密码:123456</span>
+              </Space>
+            </div>
             </div>
             </Col>
-        </Row>
+         </Row>
         </div>
+        
     </div>
   )
 }

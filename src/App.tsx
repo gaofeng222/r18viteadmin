@@ -1,17 +1,15 @@
 import '@/App.css'
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Avatar, Layout, Menu } from 'antd';
+import {Layout, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
 const App: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed] = useState(false);
   const location = useLocation();
   const pathname= location.pathname;
   const navigate = useNavigate();
