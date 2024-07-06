@@ -1,11 +1,11 @@
 import '@/App.css'
-import { DownOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { AlertOutlined, BankOutlined, DownOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, Layout, Menu, MenuProps, Space, message } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import { Content, Header } from 'antd/es/layout/layout';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate,useMatches  } from 'react-router-dom';
 import './index.scss'
 import { logOutFormDispatch } from '@/store/reducers/loginReucer';
 
@@ -20,14 +20,21 @@ const items: MenuProps['items'] = [
 const DefaultLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {userInfo} = useSelector((state: any) => state.loginReducer);
+  const [stateOpenKeys, setStateOpenKeys] = useState(['']);
+  const routes = useMatches()
+  
   const dispatch = useDispatch();
   const location = useLocation();
   const pathname= location.pathname;
   const navigate = useNavigate();
   const handleClickMenu = (e: any) => {
+    console.log("🚀 ~ handleClickMenu ~ e:", e)
     //路由跳转
     navigate(e.key);
   }
+
+  useEffect(() => {
+  }, [])
 
   const  handleLogOut:MenuProps['onClick'] = async () => {
     //@ts-ignore
@@ -40,6 +47,12 @@ const DefaultLayout: React.FC = () => {
     }
   }
 
+  const onOpenChange = (openKeys:any) => {
+    console.log("🚀 ~ onOpenChange ~ openKeys:", openKeys)
+    const currentOpenKey = openKeys.find((key:string) => stateOpenKeys.indexOf(key) === -1);
+    setStateOpenKeys([currentOpenKey])
+  }
+
   return (
     <Layout className='main-layout'>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -49,12 +62,56 @@ const DefaultLayout: React.FC = () => {
           mode="inline"
           onClick={handleClickMenu}
           selectedKeys={[pathname]}
+          openKeys={stateOpenKeys}
           defaultSelectedKeys={[pathname]}
+          onOpenChange={onOpenChange}
           items={[
             {
               key: '/',
               icon: <UserOutlined />,
               label: '首页',
+            },
+            {
+              key: '/hooks',
+              icon: <BankOutlined />,
+              label: 'hooks知识',
+              children: [
+                {
+                  key: '/hooks/useState',
+                  label: 'useState',
+                },
+                {
+                  key: '/hooks/useEffect',
+                  label: 'useEffect',
+                },
+                {
+                    key: '/hooks/useMemo',
+                    label: 'useMemo',                  
+                }
+              ]
+            },
+            {
+              key: '/store',
+              icon: <AlertOutlined />,
+              label: '数据中心',              
+              children: [
+                {
+                  key: '/redux/redux-thunk',
+                  label: 'redux-thunk',
+                },
+                {
+                  key: '/redux/redux-saga',
+                  label: 'redux-saga',
+                },
+                {
+                  key: '/redux/toolkit',
+                  label: 'reactJsToolkit',
+                },
+                {
+                  key: '/redux/zustand',
+                  label: 'zustand', 
+                }
+              ]
             },
             {
               key: '/about',
