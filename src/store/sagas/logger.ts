@@ -1,11 +1,11 @@
-import { put, select, take, takeEvery } from "redux-saga/effects";
+import { put, take } from 'redux-saga/effects'
 
-function* logger(action) {
-  const state = yield select();
+// function* logger(action) {
+//   const state = yield select();
 
-  console.log("action", action);
-  console.log("state after", state);
-}
+//   console.log("action", action);
+//   console.log("state after", state);
+// }
 
 // function* watchAndLog() {
 //   yield takeEvery("*", logger);
@@ -21,15 +21,12 @@ function* logger(action) {
 // }
 
 function* watchFirstThreeTodosCreation() {
-  let actions;
+  let actions
   for (let i = 0; i < 3; i++) {
-    actions = yield take("TODO_CREATED");
-    console.log(
-      "🚀 ~ function*watchFirstThreeTodosCreation ~ action:",
-      actions
-    );
+    actions = yield take('TODO_CREATED')
+    console.log('🚀 ~ function*watchFirstThreeTodosCreation ~ action:', actions)
   }
-  yield put({ type: "SHOW_CONGRATULATION", action: actions.payload });
+  yield put({ type: 'SHOW_CONGRATULATION', action: actions.payload })
 }
 
-export default watchFirstThreeTodosCreation;
+export default watchFirstThreeTodosCreation
