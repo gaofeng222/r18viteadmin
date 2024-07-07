@@ -45,7 +45,7 @@ function Login() {
           <Col span={12}>
             <div className={style['right-content']}>
               <p className={style['login-form-title']}>
-                欢迎使用<span>Viteam</span>管理平台
+                欢迎使用<span>财务</span>管理平台
               </p>
               <h2>登录</h2>
               <Form
